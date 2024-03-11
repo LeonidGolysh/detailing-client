@@ -1,13 +1,15 @@
 package com.detailing.feature.client.service;
 
-import com.detailing.feature.client.dto.CreateClientRequest;
-import com.detailing.feature.client.dto.CreateClientResponse;
+import com.detailing.feature.client.dto.create.CreateClientRequest;
+import com.detailing.feature.client.dto.create.CreateClientResponse;
 import com.detailing.feature.client.entity.Client;
 import com.detailing.feature.client.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 //@AllArgsConstructor
@@ -31,5 +33,22 @@ public class ClientService {
         response.setClientId(client.getId());
 
         return response;
+    }
+
+    public void updateClient(UUID id, String newName, String newPhoneNumber) {
+        Optional<Client> optionalClient = clientRepository.findById(id);
+        if (optionalClient.isPresent()) {
+            Client client = optionalClient.get();
+
+            if (newName != null) {
+                client.setName(newName);
+            }
+            if (newPhoneNumber != null) {
+                client.setPhoneNumber(newPhoneNumber);
+            }
+            clientRepository.save(client);
+        } else {
+            throw new IllegalArgumentException("Record with ID " + id + " not found");
+        }
     }
 }

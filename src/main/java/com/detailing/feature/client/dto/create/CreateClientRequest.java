@@ -1,4 +1,4 @@
-package com.detailing.feature.client.dto;
+package com.detailing.feature.client.dto.create;
 
 import lombok.Data;
 
