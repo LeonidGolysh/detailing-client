@@ -1,20 +1,26 @@
 package com.detailing.feature.client.controller;
 
-import com.detailing.feature.client.dto.CreateClientRequest;
-import com.detailing.feature.client.dto.CreateClientResponse;
+import com.detailing.feature.client.dto.create.CreateClientRequest;
+import com.detailing.feature.client.dto.update.UpdateClientRequest;
 import com.detailing.feature.client.entity.Client;
+import com.detailing.feature.client.repository.ClientRepository;
 import com.detailing.feature.client.service.ClientService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
-import org.springframework.boot.Banner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 @AllArgsConstructor
 //@RequestMapping("api/v1/")
 public class MainController {
-    private final ClientService clientService;
+    @Autowired
+    private ClientService clientService;
 
     @GetMapping("/")
     public String main() {
@@ -37,5 +43,10 @@ public class MainController {
     public String showClients(Model model) {
         model.addAttribute("clients", clientService.getAllClients());
         return "client";
+    }
+
+    @GetMapping("/edit")
+    public String editClient() {
+        return "updateClient";
     }
 }
