@@ -49,4 +49,16 @@ public class MainController {
     public String editClient() {
         return "updateClient";
     }
+
+    @GetMapping("/client/delete")
+    public String showDeleteClientFrom(@RequestParam("id") UUID clientId, Model model) {
+        model.addAttribute("clientId", clientId);
+        return "deleteClient";
+    }
+
+    @PostMapping("/client/delete")
+    public String deleteClient(@RequestParam("id") UUID clientId) {
+        clientService.deleteClient(clientId);
+        return "redirect:/client";
+    }
 }

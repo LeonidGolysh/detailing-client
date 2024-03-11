@@ -51,4 +51,8 @@ public class ClientService {
             throw new IllegalArgumentException("Record with ID " + id + " not found");
         }
     }
+
+    public void deleteClient(UUID clientId) {
+        clientRepository.deleteById(clientId);
+    }
 }
